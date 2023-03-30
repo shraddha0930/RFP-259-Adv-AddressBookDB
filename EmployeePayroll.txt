@@ -1,0 +1,71 @@
+/* employee_payroll_service databsae */
+
+# UC1
+create database payroll_service;
+use payroll_service;
+
+#UC2
+create table employee_payroll(
+id int unsigned not null auto_increment,
+name varchar(150) not null ,
+salary double not null,
+start date not null,
+primary key(id) 
+);
+
+#UC3
+insert into employee_payroll(name,salary,start)
+values("Bill",1000000.0,'2018-01-22'),
+("Mark",2000000.0,'2019-11-13'),
+("Charle",3000000.0,'2020-05-21');
+
+#UC4
+select * from employee_payroll;
+
+#UC5
+select salary from employee_payroll where name = "Bill";
+select name from employee_payroll where start between cast("2018-01-01" as date) and date(now());
+ 
+#UC6
+alter table employee_payroll add gender char(1) after name;
+update employee_payroll set gender = 'M' where name = "Bill";
+update employee_payroll set gender = "F" where name = "Mark";
+update employee_payroll set gender = "M" where name = "charle";
+
+#UC7
+select sum(salary) from employee_payroll
+where gender = "M" group by gender;
+select avg(salary) from employee_payroll
+where gender = "M" group by gender;
+select min(salary) from employee_payroll
+where gender = "M" group by gender;
+select max(salary) from employee_payroll
+where gender = "M" group by gender;
+select count(id) from employee_payroll
+where gender = "M" group by gender;
+select count(id) from employee_payroll
+where gender = "F" group by gender;
+
+#UC8
+alter table employee_payroll add phonenumber int after start;
+alter table employee_payroll add address varchar(100) after phonenumber;
+alter table employee_payroll add department varchar(50) after salary;
+update employee_payroll set department = 'devops', phonenumber = 123 , address = "mumbai"
+where id = 1;
+update employee_payroll set department = 'full-stack-developer', phonenumber = 321 , address = "mumbai"
+where id = 2;
+update employee_payroll set department = '.net developer', phonenumber = 567 , address = "mumbai"
+where id = 4;
+update employee_payroll set department = 'production', phonenumber = 789 , address = "thane"
+where id = 3;
+select * from employee_payroll;
+
+#UC12
+insert into employee_department(id,department_id)
+values(1,21),
+(3,25),
+(2,31),
+(4,29);
+select * from employee_payroll;
+
+
